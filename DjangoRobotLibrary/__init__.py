@@ -107,7 +107,9 @@ class DjangoRobotLibrary:
         logger.console("Stop Django live server")
 
     def load_fixtures(self, fixtures):
-        fixtures = [fixtures]
+        if not isinstance(fixtures, list) or not isinstance(fixtures, tuple):
+            fixtures = [fixtures]
+
         for db_name in self._databases_names(include_mirrors=False):
             call_command("loaddata", *fixtures, **{"verbosity": 0, "database": db_name})
 
