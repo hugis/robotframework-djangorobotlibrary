@@ -101,6 +101,8 @@ class DjangoRobotLibrary:
             f"Start Django on {self.server_thread.host}:{self.server_thread.port}"
         )
 
+        return self.server_thread
+
     def stop_live_django_server(self):
         self.server_thread.terminate()
         self.server_thread.join()
