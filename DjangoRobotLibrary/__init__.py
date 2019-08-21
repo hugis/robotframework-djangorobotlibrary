@@ -124,3 +124,15 @@ class DjangoRobotLibrary:
         factory_class = import_string(factory)
         model = factory_class(**kwargs)
         return model
+
+    @staticmethod
+    def get_model_manager(model, manager=None):
+        model_class = import_string(model)
+        if manager is None:
+            # noinspection PyProtectedMember
+            return model_class._default_manager
+        else:
+            if hasattr(model_class, manager):
+                return getattr(model_class, manager)
+            else:
+                raise AttributeError
